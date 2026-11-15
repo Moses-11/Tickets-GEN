@@ -5,8 +5,8 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="theme-color" content="#090d0b">
-  <meta name="description" content="Wilson Match Predictions — create a clean, printable sports-picks ticket from user-entered match details.">
-  <title>Wilson Match Predictions | Matching Arena</title>
+  <meta name="description" content="Jacob's Match Predictions — create a clean, printable sports-picks ticket from user-entered match details.">
+  <title>JACOB'S Match Predictions | Matching Arena</title>
 
   <style>
     :root {
@@ -313,17 +313,27 @@
       text-transform: uppercase;
     }
 
-    /* MAIN BETTING TICKET */
+    /* MAIN BETTING TICKET CARD */
 
-    /* GREEN BET SLIp BODY */
+    .ticket {
+      position: relative;
+      isolation: isolate;
+      overflow: hidden;
+      border-radius: 20px;
+      background: #ff6a2a;
+      border: 1px solid rgba(156,255,50,.22);
+      box-shadow: 0 24px 65px rgba(0,0,0,.42), 0 0 0 1px rgba(255,255,255,.025);
+      transform: translateZ(0);
+    }
+
     .ticket-body {
-    padding: 22px 24px 19px;
-    background: #FFFFFF !important;
-    color: #000000 !important;
-    font-weight: 900;
-}
+      padding: 22px 24px 19px;
+      background: #39ff14 !important;
+      color: #000000 !important;
+      font-weight: 900;
+    }
 
-    .ticket::before,
+.ticket::before,
     .ticket::after {
       content: "";
       position: absolute;
@@ -396,13 +406,7 @@
       font-size: 9px;
       letter-spacing: .17em;
     }
-
-    .ticket-body {
-      padding: 22px 24px 19px;
-      background: #ff6a2a;
-    }
-
-    .ticket-meta {
+.ticket-meta {
       display: flex;
       justify-content: space-between;
       gap: 12px;
@@ -488,25 +492,7 @@
       padding-top: 16px;
       text-align: center;
     }
-
-    .barcode {
-      height: 46px;
-      display: flex;
-      align-items: stretch;
-      justify-content: center;
-      gap: 1px;
-      margin: 0 auto 9px;
-      max-width: 290px;
-      overflow: hidden;
-    }
-
-    .barcode span {
-      display: block;
-      background: #152016;
-      min-width: 1px;
-    }
-
-    .barcode-number {
+.barcode-number {
       font-family: ui-monospace,SFMono-Regular,Consolas,monospace;
       font-size: 11px;
       letter-spacing: .19em;
@@ -646,6 +632,7 @@
         margin: 0 auto;
         print-color-adjust: exact;
         -webkit-print-color-adjust: exact;
+        border-radius: 20px;
       }
 
       .ticket::before,
@@ -672,7 +659,7 @@
         </div>
 
         <div>
-          <div class="brand-name">WILSON MATCH PREDICTIONS</div>
+          <div class="brand-name">JACOB'S MATCH PREDICTIONS</div>
           <div class="brand-sub">SPORTS PICKS</div>
         </div>
 
@@ -688,8 +675,8 @@
       <h1>Your picks. Your ticket.</h1>
 
       <p>
-        Enter two match selections and their decimal odds.
-        Wilson Betting Tickets formats your details into a clean
+        Enter four match selections and their decimal odds.
+        JACOB'S Betting Tickets formats your details into a clean
         ticket preview and calculates the combined odds automatically.
       </p>
     </section>
@@ -708,77 +695,110 @@
 
         <form id="ticketForm" novalidate>
 
-          <span class="section-label">First match</span>
+          <span class="section-label">Match selections</span>
 
           <div class="match-card">
-
             <div class="match-title">
               <span>Match 01</span>
               <span>SELECTION</span>
             </div>
-
             <div class="field-grid">
-
               <div class="field full">
                 <label for="match1">Fixture</label>
                 <input id="match1" maxlength="70"
-                  placeholder="e.g. Arsenal Vs Chelsea" required>
+                  placeholder="e.g. Team A Vs Team B" required>
               </div>
-
               <div class="field">
                 <label for="result1">Result / Pick</label>
                 <input id="result1" maxlength="35"
                   placeholder="e.g. Home Win" required>
               </div>
-
               <div class="field">
                 <label for="odd1">Decimal odds</label>
                 <input id="odd1" type="number" inputmode="decimal"
                   min="1.01" max="100000" step="0.01"
                   placeholder="e.g. 1.85" required>
               </div>
-
             </div>
           </div>
 
-
-          <span class="section-label">Second match</span>
-
           <div class="match-card">
-
             <div class="match-title">
               <span>Match 02</span>
               <span>SELECTION</span>
             </div>
-
             <div class="field-grid">
-
               <div class="field full">
                 <label for="match2">Fixture</label>
                 <input id="match2" maxlength="70"
-                  placeholder="e.g. Real Madrid Vs Barcelona" required>
+                  placeholder="e.g. Team C Vs Team D" required>
               </div>
-
               <div class="field">
                 <label for="result2">Result / Pick</label>
                 <input id="result2" maxlength="35"
-                  placeholder="e.g. Over 1.5 Goals" required>
+                  placeholder="e.g. Home Win" required>
               </div>
-
               <div class="field">
                 <label for="odd2">Decimal odds</label>
                 <input id="odd2" type="number" inputmode="decimal"
                   min="1.01" max="100000" step="0.01"
-                  placeholder="e.g. 1.70" required>
+                  placeholder="e.g. 1.85" required>
               </div>
-
             </div>
           </div>
 
+          <div class="match-card">
+            <div class="match-title">
+              <span>Match 03</span>
+              <span>SELECTION</span>
+            </div>
+            <div class="field-grid">
+              <div class="field full">
+                <label for="match3">Fixture</label>
+                <input id="match3" maxlength="70"
+                  placeholder="e.g. Team E Vs Team F" required>
+              </div>
+              <div class="field">
+                <label for="result3">Result / Pick</label>
+                <input id="result3" maxlength="35"
+                  placeholder="e.g. Home Win" required>
+              </div>
+              <div class="field">
+                <label for="odd3">Decimal odds</label>
+                <input id="odd3" type="number" inputmode="decimal"
+                  min="1.01" max="100000" step="0.01"
+                  placeholder="e.g. 1.85" required>
+              </div>
+            </div>
+          </div>
+
+          <div class="match-card">
+            <div class="match-title">
+              <span>Match 04</span>
+              <span>SELECTION</span>
+            </div>
+            <div class="field-grid">
+              <div class="field full">
+                <label for="match4">Fixture</label>
+                <input id="match4" maxlength="70"
+                  placeholder="e.g. Team G Vs Team H" required>
+              </div>
+              <div class="field">
+                <label for="result4">Result / Pick</label>
+                <input id="result4" maxlength="35"
+                  placeholder="e.g. Home Win" required>
+              </div>
+              <div class="field">
+                <label for="odd4">Decimal odds</label>
+                <input id="odd4" type="number" inputmode="decimal"
+                  min="1.01" max="100000" step="0.01"
+                  placeholder="e.g. 1.85" required>
+              </div>
+            </div>
+          </div>
 
           <p class="hint">
-            Use decimal odds greater than 1.00. The total odds are
-            calculated as Match 01 odds × Match 02 odds.
+            Use decimal odds greater than 1.00. The total odds are calculated by multiplying all four match odds.
           </p>
 
 
@@ -829,7 +849,7 @@
               </div>
 
               <div>
-                <h2>WILSON SOCCER PREDICTIONS</h2>
+                <h2>JACOB'S SOCCER PREDICTIONS</h2>
                 <small>SPORTS ANALYSIS • MATCH SELECTIONS</small>
               </div>
 
@@ -842,7 +862,7 @@
           <div class="ticket-body">
 
             <div class="ticket-meta">
-              <span>CARD ID: <strong id="ticketId">WT-000000</strong></span>
+              <span>CARD ID: <strong id="ticketId">JC-000000</strong></span>
               <span id="ticketDate">AWAITING DETAILS</span>
             </div>
 
@@ -870,6 +890,17 @@
                   <td class="result-value" id="outResult2">—</td>
                   <td class="odd-value" id="outOdd2">—</td>
                 </tr>
+                <tr>
+                  <td class="match-name" id="outMatch3">Team E Vs Team F</td>
+                  <td class="result-value" id="outResult3">—</td>
+                  <td class="odd-value" id="outOdd3">—</td>
+                </tr>
+
+                <tr>
+                  <td class="match-name" id="outMatch4">Team G Vs Team H</td>
+                  <td class="result-value" id="outResult4">—</td>
+                  <td class="odd-value" id="outOdd4">—</td>
+                </tr>
 
                 <tr class="total-row">
                   <td colspan="2">TOTAL ODDS</td>
@@ -881,21 +912,17 @@
             </table>
 
 
-            <!-- BARCODE -->
-
+            <!-- EIGHT-DIGIT REFERENCE CODE -->
             <div class="ticket-foot">
-
-              <div class="barcode" id="barcode" aria-label="Ticket barcode"></div>
-
               <div class="barcode-number" id="barcodeNumber">
-                0000 0000 0000 0000
+                0000 0000
               </div>
-
               <div class="ticket-note">
                 REFERENCE CODE • GENERATED FOR THIS CARD
               </div>
-
             </div>
+
+          </div>
 
           </div>
 
@@ -903,7 +930,7 @@
           <!-- FIXED FOOTER -->
 
           <div class="ticket-bottom">
-            <span>WILSON <strong>●</strong> MATCH PREDICTIONS</span>
+            <span>JACOB'S <strong>●</strong> MATCH PREDICTIONS</span>
             <span>100% ACCURATE</span>
           </div>
 
@@ -928,7 +955,7 @@
         <p class="footnote">
           This is a personal ticket-design tool. It does not place bets,
           connect to a bookmaker, verify selections, or guarantee outcomes.
-          The barcode and ticket reference are visual identifiers generated locally.
+          The eight-digit ticket reference is generated locally.
         </p>
 
       </section>
