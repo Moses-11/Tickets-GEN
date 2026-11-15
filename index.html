@@ -2,970 +2,859 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="theme-color" content="#090d0b">
-  <meta name="description" content="Jacob's Match Predictions — create a clean, printable sports-picks ticket from user-entered match details.">
-  <title>JACOB'S Match Predictions | Matching Arena</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#090d0b">
+<title>JACOB'S | Soccer Predictions</title>
 
-  <style>
-    :root {
-      --black: #090d0b;
-      --panel: #111915;
-      --panel-2: #17221b;
-      --green: #9cff32;
-      --green-deep: #5eaf18;
-      --orange: #ff6a2a;
-      --muted: #9ba89e;
-      --line: rgba(156,255,50,.19);
-      --shadow: 0 22px 70px rgba(0,0,0,.38);
-    }
+<style>
+:root {
+    --black: #090d0b;
+    --dark: #101912;
+    --panel: #17221b;
+    --green: #39FF14;
+    --orange: #E85B20;
+    --white: #ffffff;
+    --muted: #9ba89e;
+}
 
-    * {
-      box-sizing: border-box;
-    }
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
 
-    body {
-      margin: 0;
-      min-height: 100vh;
-      color: var(--orange);
-      background:
-        radial-gradient(circle at 15% 5%, rgba(156,255,50,.10), transparent 28rem),
-        radial-gradient(circle at 90% 12%, rgba(255,106,42,.09), transparent 26rem),
+body {
+    min-height: 100vh;
+    padding: 30px 15px;
+    background:
+        radial-gradient(circle at top left, rgba(57,255,20,.10), transparent 350px),
+        radial-gradient(circle at bottom right, rgba(232,91,32,.10), transparent 350px),
         var(--black);
-      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-    }
+    color: white;
+    font-family: Arial, Helvetica, sans-serif;
+}
 
-    button, input {
-      font: inherit;
-    }
+.container {
+    width: min(1100px, 100%);
+    margin: auto;
+}
 
-    .shell {
-      width: min(1160px, calc(100% - 36px));
-      margin: 0 auto;
-      padding: 34px 0 54px;
-    }
+.header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 15px;
+    margin-bottom: 30px;
+}
 
-    .topbar {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 18px;
-      margin-bottom: 30px;
-    }
+.brand {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
 
-    .brand {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-    }
+.brand-icon {
+    width: 45px;
+    height: 45px;
+    display: grid;
+    place-items: center;
+    border-radius: 13px;
+    background: var(--green);
+    color: var(--black);
+    font-size: 25px;
+    font-weight: 900;
+}
 
-    .brand-mark {
-      width: 44px;
-      height: 44px;
-      display: grid;
-      place-items: center;
-      border-radius: 13px;
-      color: var(--black);
-      background: linear-gradient(145deg,var(--green),#d5ff9a);
-      box-shadow: 0 0 28px rgba(156,255,50,.18);
-    }
+.brand h2 {
+    font-size: 15px;
+    font-weight: 950;
+    letter-spacing: 1.3px;
+}
 
-    .brand-mark svg {
-      width: 27px;
-      height: 27px;
-    }
+.brand p {
+    font-size: 9px;
+    color: var(--muted);
+    letter-spacing: 2px;
+    margin-top: 5px;
+}
 
-    .brand-name {
-      font-weight: 900;
-      letter-spacing: .09em;
-      font-size: 14px;
-    }
+.status {
+    border: 1px solid rgba(57,255,20,.3);
+    padding: 8px 12px;
+    border-radius: 30px;
+    font-size: 10px;
+    color: var(--green);
+}
 
-    .brand-sub {
-      color: var(--muted);
-      font-size: 11px;
-      letter-spacing: .16em;
-      margin-top: 3px;
-    }
+.intro {
+    margin-bottom: 25px;
+}
 
-    .status {
-      color: var(--green);
-      border: 1px solid var(--line);
-      border-radius: 999px;
-      padding: 8px 12px;
-      font-size: 11px;
-      letter-spacing: .12em;
-    }
+.intro small {
+    color: var(--green);
+    font-weight: 900;
+    letter-spacing: 3px;
+    font-size: 10px;
+}
 
-    .intro {
-      margin: 0 0 25px;
-    }
+.intro h1 {
+    font-size: clamp(27px,4vw,40px);
+    margin: 10px 0;
+}
 
-    .eyebrow {
-      color: var(--orange);
-      font-size: 11px;
-      font-weight: 800;
-      letter-spacing: .2em;
-      text-transform: uppercase;
-    }
+.intro p {
+    color: var(--muted);
+    font-size: 13px;
+    line-height: 1.7;
+    max-width: 650px;
+}
 
-    h1 {
-      margin: 8px 0 8px;
-      font-size: clamp(27px,4vw,42px);
-      line-height: 1.08;
-      letter-spacing: -.04em;
-    }
+.workspace {
+    display: grid;
+    grid-template-columns: minmax(0,.9fr) minmax(0,1.1fr);
+    gap: 22px;
+    align-items: start;
+}
 
-    .intro p {
-      color: var(--muted);
-      margin: 0;
-      max-width: 680px;
-      line-height: 1.65;
-      font-size: 14px;
-    }
+.panel {
+    background: linear-gradient(145deg,#17221b,#101712);
+    border: 1px solid rgba(57,255,20,.18);
+    border-radius: 20px;
+    padding: 22px;
+    box-shadow: 0 20px 60px rgba(0,0,0,.3);
+}
 
+.panel-heading {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.panel-heading h2 {
+    font-size: 16px;
+}
+
+.step {
+    color: var(--green);
+    font-size: 10px;
+    letter-spacing: 2px;
+    font-weight: 900;
+}
+
+.section-label {
+    display: block;
+    color: var(--green);
+    font-size: 10px;
+    font-weight: 900;
+    letter-spacing: 2px;
+    margin: 20px 0 10px;
+}
+
+.match-input {
+    padding: 14px;
+    border-radius: 13px;
+    background: rgba(0,0,0,.2);
+    border: 1px solid rgba(255,255,255,.08);
+    margin-bottom: 12px;
+}
+
+.match-title {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 12px;
+    font-size: 12px;
+    font-weight: 900;
+}
+
+.match-title span:last-child {
+    color: var(--orange);
+    font-size: 10px;
+    letter-spacing: 1px;
+}
+
+.field-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+}
+
+.field {
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+}
+
+.field.full {
+    grid-column: 1/-1;
+}
+
+label {
+    color: #c3cec5;
+    font-size: 11px;
+}
+
+input {
+    width: 100%;
+    padding: 12px;
+    border-radius: 9px;
+    outline: none;
+    border: 1px solid rgba(255,255,255,.12);
+    background: #090f0b;
+    color: white;
+    font-size: 12px;
+}
+
+input:focus {
+    border-color: var(--green);
+    box-shadow: 0 0 0 3px rgba(57,255,20,.08);
+}
+
+input::placeholder {
+    color: #647168;
+}
+
+.hint {
+    color: #8b998e;
+    font-size: 10px;
+    line-height: 1.6;
+    margin-top: 12px;
+}
+
+.actions {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    margin-top: 20px;
+}
+
+button {
+    border: none;
+    cursor: pointer;
+    border-radius: 10px;
+    padding: 13px 17px;
+    font-size: 11px;
+    font-weight: 950;
+    letter-spacing: .5px;
+    transition: .2s;
+}
+
+button:hover {
+    transform: translateY(-2px);
+    filter: brightness(1.1);
+}
+
+.generate {
+    flex: 1;
+    color: #071006;
+    background: var(--green);
+}
+
+.secondary {
+    background: #26352a;
+    color: white;
+}
+
+.orange-btn {
+    background: var(--orange);
+    color: #000;
+}
+
+.error {
+    display: none;
+    color: #ff9977;
+    font-size: 12px;
+    margin-top: 12px;
+    line-height: 1.5;
+}
+
+/* TICKET PREVIEW */
+
+.preview {
+    position: sticky;
+    top: 20px;
+    min-width: 0;
+}
+
+.preview-label {
+    display: flex;
+    justify-content: space-between;
+    color: var(--muted);
+    font-size: 10px;
+    letter-spacing: 1.5px;
+    margin: 0 3px 12px;
+}
+
+.ticket {
+    width: 100%;
+    overflow: hidden;
+    position: relative;
+    isolation: isolate;
+    border-radius: 20px;
+    background: var(--green);
+    color: #000;
+    border: 1px solid rgba(255,255,255,.15);
+    box-shadow: 0 25px 65px rgba(0,0,0,.45);
+}
+
+/* HEADER */
+
+.ticket-header {
+    background: var(--dark);
+    color: white;
+    padding: 20px 24px;
+    border-bottom: 3px solid var(--orange);
+}
+
+.ticket-brand {
+    display: flex;
+    align-items: center;
+    gap: 11px;
+}
+
+.ticket-logo {
+    width: 39px;
+    height: 39px;
+    border-radius: 11px;
+    display: grid;
+    place-items: center;
+    background: var(--green);
+    color: #000;
+    font-size: 23px;
+    font-weight: 950;
+}
+
+.ticket-brand h2 {
+    font-size: clamp(14px,2vw,19px);
+    font-weight: 950;
+    letter-spacing: 1px;
+}
+
+.ticket-brand small {
+    display: block;
+    color: #9ba89e;
+    font-size: 9px;
+    margin-top: 4px;
+    letter-spacing: 1.5px;
+}
+
+/* NEON GREEN TICKET BODY */
+
+.ticket-body {
+    padding: 22px 24px 19px;
+    background: #39FF14 !important;
+    color: #000000 !important;
+    font-weight: 900;
+}
+
+.ticket-meta {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-bottom: 17px;
+    font-size: 9px;
+    letter-spacing: 1px;
+    color: #000;
+    font-weight: 950;
+}
+
+/* TABLE */
+
+.ticket table {
+    width: 100%;
+    border-collapse: collapse;
+    table-layout: fixed;
+    background: #39FF14 !important;
+}
+
+.ticket th {
+    padding: 12px 9px;
+    background: #E85B20 !important;
+    color: #000 !important;
+    text-align: left;
+    font-size: 10px;
+    font-weight: 950;
+    letter-spacing: .7px;
+}
+
+.ticket td {
+    padding: 16px 9px;
+    background: #39FF14 !important;
+    color: #000 !important;
+    font-size: 12px;
+    font-weight: 950;
+    border-bottom: 1px solid rgba(0,0,0,.18);
+    overflow-wrap: anywhere;
+}
+
+.ticket th:first-child,
+.ticket td:first-child {
+    width: 52%;
+}
+
+.ticket th:nth-child(2),
+.ticket td:nth-child(2) {
+    width: 25%;
+}
+
+.ticket th:last-child,
+.ticket td:last-child {
+    width: 23%;
+    text-align: right;
+}
+
+.ticket .total-row td {
+    background: #E85B20 !important;
+    color: #000 !important;
+    border-bottom: none;
+    font-weight: 950;
+    font-size: 13px;
+}
+
+.ticket .total-row td:last-child {
+    font-size: 15px;
+}
+
+/* REFERENCE CODE */
+
+.ticket-foot {
+    margin-top: 20px;
+    padding: 17px 5px 0;
+    border-top: 1px dashed rgba(0,0,0,.5);
+    text-align: center;
+    background: #39FF14 !important;
+}
+
+.reference-code {
+    color: #000;
+    font-family: monospace;
+    font-weight: 950;
+    letter-spacing: 4px;
+    font-size: 12px;
+}
+
+.ticket-note {
+    margin-top: 11px;
+    color: #000;
+    font-size: 9px;
+    font-weight: 950;
+}
+
+/* FOOTER */
+
+.ticket-footer {
+    background: var(--orange);
+    padding: 11px 24px;
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+    color: #000;
+    font-size: 9px;
+    font-weight: 950;
+    letter-spacing: .5px;
+}
+
+/* GENERAL */
+
+.footnote {
+    color: #829087;
+    font-size: 10px;
+    line-height: 1.6;
+    margin-top: 17px;
+}
+
+@media(max-width:850px) {
     .workspace {
-      display: grid;
-      grid-template-columns: minmax(0, .92fr) minmax(0, 1.08fr);
-      gap: 22px;
-      align-items: start;
+        grid-template-columns: 1fr;
+    }
+
+    .preview {
+        position: static;
+    }
+}
+
+@media(max-width:520px) {
+    body {
+        padding: 18px 10px;
     }
 
     .panel {
-      background: linear-gradient(160deg,rgba(23,34,27,.96),rgba(14,21,17,.98));
-      border: 1px solid var(--line);
-      border-radius: 22px;
-      padding: 22px;
-      box-shadow: var(--shadow);
+        padding: 15px;
     }
 
-    .panel-head {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 12px;
-      margin-bottom: 19px;
+    .ticket-header,
+    .ticket-body {
+        padding-left: 15px;
+        padding-right: 15px;
     }
 
-    .panel-head h2 {
-      margin: 0;
-      font-size: 16px;
-      letter-spacing: .02em;
+    .ticket-footer {
+        padding-left: 14px;
+        padding-right: 14px;
     }
 
-    .step {
-      color: var(--green);
-      font-size: 10px;
-      font-weight: 800;
-      letter-spacing: .14em;
+    .ticket td {
+        padding: 13px 6px;
+        font-size: 10px;
     }
 
-    .section-label {
-      display: block;
-      color: var(--muted);
-      font-size: 10px;
-      font-weight: 800;
-      letter-spacing: .15em;
-      text-transform: uppercase;
-      margin: 19px 0 10px;
+    .ticket th {
+        padding: 11px 6px;
+        font-size: 9px;
     }
 
-    .match-card {
-      padding: 14px;
-      border: 1px solid rgba(255,255,255,.08);
-      background: rgba(0,0,0,.16);
-      border-radius: 15px;
-      margin-bottom: 12px;
+    .status {
+        font-size: 8px;
+        padding: 7px;
+    }
+}
+
+/* PRINT */
+
+@media print {
+    @page {
+        margin: 10mm;
     }
 
-    .match-title {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 10px;
-      margin-bottom: 12px;
-      font-size: 12px;
-      font-weight: 800;
+    body {
+        padding: 0;
+        background: white;
     }
 
-    .match-title span:last-child {
-      color: var(--orange);
-      font-size: 10px;
-      letter-spacing: .1em;
+    .header,
+    .intro,
+    .form-panel,
+    .preview-label,
+    .preview-actions,
+    .footnote {
+        display: none !important;
     }
 
-    .field-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 10px;
+    .container,
+    .workspace,
+    .preview {
+        display: block;
+        width: 100%;
+        margin: 0;
+        padding: 0;
     }
-
-    .field {
-      display: flex;
-      flex-direction: column;
-      gap: 6px;
-      min-width: 0;
-    }
-
-    .field.full {
-      grid-column: 1/-1;
-    }
-
-    label {
-      color: #c3cec5;
-      font-size: 11px;
-    }
-
-    input {
-      width: 100%;
-      min-width: 0;
-      border: 1px solid rgba(255,255,255,.12);
-      outline: none;
-      color: #f4f7f2;
-      background: #0a100c;
-      border-radius: 10px;
-      padding: 11px 12px;
-      transition: border-color .2s, box-shadow .2s;
-    }
-
-    input:focus {
-      border-color: var(--green);
-      box-shadow: 0 0 0 3px rgba(156,255,50,.09);
-    }
-
-    input::placeholder {
-      color: #657168;
-    }
-
-    input[type="number"] {
-      appearance: textfield;
-    }
-
-    .hint {
-      color: #7f8d83;
-      font-size: 10px;
-      line-height: 1.5;
-      margin: 10px 1px 0;
-    }
-
-    .actions {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 10px;
-      margin-top: 20px;
-    }
-
-    .btn {
-      border: 0;
-      border-radius: 11px;
-      padding: 12px 16px;
-      cursor: pointer;
-      font-weight: 850;
-      font-size: 12px;
-      letter-spacing: .04em;
-      transition: transform .15s, filter .15s;
-    }
-
-    .btn:hover {
-      transform: translateY(-1px);
-      filter: brightness(1.08);
-    }
-
-    .btn-primary {
-      color: #10170d;
-      background: linear-gradient(135deg,var(--green),#c9ff83);
-      flex: 1;
-    }
-
-    .btn-secondary {
-      color: #f4f7f2;
-      background: #26332a;
-      border: 1px solid rgba(255,255,255,.1);
-    }
-
-    .btn-orange {
-      color: #1b0c05;
-      background: var(--orange);
-    }
-
-    .error {
-      display: none;
-      margin-top: 12px;
-      color: #ffb18f;
-      font-size: 12px;
-      line-height: 1.5;
-    }
-
-    .preview-wrap {
-      position: sticky;
-      top: 18px;
-    }
-
-    .preview-caption {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin: 0 2px 10px;
-      color: var(--muted);
-      font-size: 10px;
-      letter-spacing: .14em;
-      text-transform: uppercase;
-    }
-
-    /* MAIN BETTING TICKET CARD */
 
     .ticket {
-      position: relative;
-      isolation: isolate;
-      overflow: hidden;
-      border-radius: 20px;
-      background: #ff6a2a;
-      border: 1px solid rgba(156,255,50,.22);
-      box-shadow: 0 24px 65px rgba(0,0,0,.42), 0 0 0 1px rgba(255,255,255,.025);
-      transform: translateZ(0);
-    }
-
-    .ticket-body {
-      padding: 22px 24px 19px;
-      background: #39ff14 !important;
-      color: #000000 !important;
-      font-weight: 900;
-    }
-
-.ticket::before,
-    .ticket::after {
-      content: "";
-      position: absolute;
-      z-index: 2;
-      top: 67%;
-      width: 20px;
-      height: 20px;
-      border-radius: 50%;
-      background: #111915;
-    }
-
-    .ticket::before {
-      left: -10px;
-    }
-
-    .ticket::after {
-      right: -10px;
-    }
-
-    .ticket-top {
-      padding: 23px 24px 18px;
-      background: #101912;
-      color: #f6fbf2;
-      position: relative;
-    }
-
-    .ticket-top::after {
-      content: "";
-      position: absolute;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      height: 3px;
-      background: linear-gradient(90deg,var(--green),var(--orange));
-    }
-
-    .ticket-brand {
-      display: flex;
-      align-items: center;
-      gap: 11px;
-    }
-
-    .ticket-logo {
-      width: 39px;
-      height: 39px;
-      flex: 0 0 auto;
-      display: grid;
-      place-items: center;
-      color: #101912;
-      background: var(--green);
-      border-radius: 11px;
-    }
-
-    .ticket-logo svg {
-      width: 25px;
-      height: 25px;
-    }
-
-    .ticket-brand h2 {
-      margin: 0;
-      font-size: clamp(15px,2vw,20px);
-      letter-spacing: .07em;
-      font-weight: 950;
-    }
-
-    .ticket-brand small {
-      display: block;
-      margin-top: 4px;
-      color: #aab7aa;
-      font-size: 9px;
-      letter-spacing: .17em;
-    }
-.ticket-meta {
-      display: flex;
-      justify-content: space-between;
-      gap: 12px;
-      margin-bottom: 14px;
-      color: #653116;
-      font-size: 9px;
-      letter-spacing: .12em;
-      text-transform: uppercase;
-    }
-
-    table {
-      border-collapse: collapse;
-      width: 100%;
-      table-layout: fixed;
-      font-size: 12px;
-    }
-
-    th {
-      padding: 11px 9px;
-      text-align: left;
-      background: #ff9a63;
-      color: #321306;
-      font-size: 10px;
-      text-transform: uppercase;
-      letter-spacing: .1em;
-    }
-
-    td {
-      padding: 15px 9px;
-      border-bottom: 1px solid rgba(76,27,5,.20);
-      overflow-wrap: anywhere;
-    }
-
-    th:first-child,
-    td:first-child {
-      width: 52%;
-    }
-
-    th:nth-child(2),
-    td:nth-child(2) {
-      width: 25%;
-    }
-
-    th:last-child,
-    td:last-child {
-      width: 23%;
-      text-align: right;
-    }
-
-    .match-name {
-      font-weight: 850;
-      color: #241006;
-    }
-
-    .result-value {
-      color: #54230d;
-      font-weight: 700;
-    }
-
-    .odd-value {
-      font-weight: 850;
-      color: #245d08;
-      font-variant-numeric: tabular-nums;
-    }
-
-    .total-row td {
-      background: #ff9a63;
-      border-bottom: 0;
-      font-weight: 950;
-      color: #241006;
-    }
-
-    .total-row td:last-child {
-      color: #245d08;
-      font-size: 15px;
-    }
-
-    /* BARCODE SECTION */
-
-    .ticket-foot {
-      border-top: 1px dashed rgba(76,27,5,.42);
-      margin-top: 20px;
-      padding-top: 16px;
-      text-align: center;
-    }
-.barcode-number {
-      font-family: ui-monospace,SFMono-Regular,Consolas,monospace;
-      font-size: 11px;
-      letter-spacing: .19em;
-      color: #321306;
-      font-weight: 800;
-    }
-
-    .ticket-note {
-      margin-top: 11px;
-      color: #6b3218;
-      font-size: 9px;
-      line-height: 1.5;
-    }
-
-    /* ORANGE TICKET FOOTER */
-
-    .ticket-bottom {
-      background: #e85b20;
-      padding: 10px 24px;
-      display: flex;
-      justify-content: space-between;
-      gap: 10px;
-      color: #fff0e7;
-      font-size: 9px;
-      letter-spacing: .08em;
-    }
-
-    .ticket-bottom strong {
-      color: #baff79;
-    }
-
-    .empty-state {
-      color: #7c897b;
-      text-align: center;
-      font-size: 11px;
-      padding: 16px 0 0;
-    }
-
-    .footnote {
-      color: #68756b;
-      font-size: 10px;
-      line-height: 1.5;
-      margin: 18px 2px 0;
-    }
-
-    /* RESPONSIVE DESIGN */
-
-    @media (max-width:850px) {
-      .workspace {
-        grid-template-columns: 1fr;
-      }
-
-      .preview-wrap {
-        position: static;
-      }
-    }
-
-    @media (max-width:520px) {
-      .shell {
-        width: min(100% - 22px, 600px);
-        padding-top: 20px;
-      }
-
-      .panel {
-        padding: 16px;
-        border-radius: 17px;
-      }
-
-      .ticket-top,
-      .ticket-body {
-        padding-left: 16px;
-        padding-right: 16px;
-      }
-
-      .ticket-bottom {
-        padding-left: 16px;
-        padding-right: 16px;
-      }
-
-      .status {
-        font-size: 9px;
-        padding: 7px 9px;
-      }
-
-      .field-grid {
-        gap: 8px;
-      }
-
-      td {
-        padding: 12px 6px;
-        font-size: 11px;
-      }
-
-      th {
-        padding: 10px 6px;
-        font-size: 9px;
-      }
-    }
-
-    /* PRINT DESIGN */
-
-    @media print {
-      @page {
-        size: auto;
-        margin: 10mm;
-      }
-
-      body {
-        background: #fff;
-      }
-
-      .shell {
         width: 100%;
-        padding: 0;
-      }
-
-      .topbar,
-      .intro,
-      .form-panel,
-      .preview-caption,
-      .footnote {
-        display: none !important;
-      }
-
-      .workspace {
-        display: block;
-      }
-
-      .preview-wrap {
-        position: static;
-      }
-
-      .ticket {
-        box-shadow: none;
-        border: 1px solid #d9dfd5;
         max-width: 700px;
-        margin: 0 auto;
-        print-color-adjust: exact;
-        -webkit-print-color-adjust: exact;
-        border-radius: 20px;
-      }
-
-      .ticket::before,
-      .ticket::after {
-        background: #fff;
-      }
+        margin: auto;
+        box-shadow: none;
+        border-radius: 16px;
+        print-color-adjust: exact !important;
+        -webkit-print-color-adjust: exact !important;
     }
-  </style>
+
+    .ticket-body,
+    .ticket th,
+    .ticket td,
+    .ticket .total-row td,
+    .ticket-foot,
+    .ticket-footer {
+        print-color-adjust: exact !important;
+        -webkit-print-color-adjust: exact !important;
+    }
+}
+</style>
 </head>
 
 <body>
 
-  <main class="shell">
+<main class="container">
 
-    <header class="topbar">
-      <div class="brand">
-
-        <div class="brand-mark" aria-hidden="true">
-          <svg viewBox="0 0 32 32" fill="none">
-            <path d="M16 2.8 27 7v8.2c0 7-4.7 11.7-11 14-6.3-2.3-11-7-11-14V7l11-4.2Z" fill="currentColor"/>
-            <path d="m7.8 17 5.1-5.2 3.1 3 7.8-7.2" stroke="#9cff32" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"/>
-            <path d="m19.2 7.6 4.6-.1-.2 4.5" stroke="#9cff32" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"/>
-          </svg>
+    <header class="header">
+        <div class="brand">
+            <div class="brand-icon">◆</div>
+            <div>
+                <h2>JACOB'S SOCCER PREDICTIONS</h2>
+                <p>SPORTS ANALYSIS • MATCH SELECTIONS</p>
+            </div>
         </div>
 
-        <div>
-          <div class="brand-name">JACOB'S MATCH PREDICTIONS</div>
-          <div class="brand-sub">SPORTS PICKS</div>
-        </div>
-
-      </div>
-
-      <div class="status">● LOCAL PREVIEW TOOL</div>
+        <div class="status">● TICKET GENERATOR</div>
     </header>
 
-
     <section class="intro">
-      <div class="eyebrow">Create • Preview • Print</div>
-
-      <h1>Your picks. Your ticket.</h1>
-
-      <p>
-        Enter four match selections and their decimal odds.
-        JACOB'S Betting Tickets formats your details into a clean
-        ticket preview and calculates the combined odds automatically.
-      </p>
+        <small>CREATE • PREVIEW • GENERATE</small>
+        <h1>Three-Match Ticket Generator</h1>
+        <p>
+            Enter your three match fixtures, correct scores
+            and decimal odds. Generate a personalized
+            JACOB'S betting ticket instantly.
+        </p>
     </section>
-
 
     <section class="workspace">
 
-      <!-- INPUT FORM -->
+        <!-- INPUT PANEL -->
 
-      <section class="panel form-panel" aria-labelledby="details-heading">
+        <section class="panel form-panel">
 
-        <div class="panel-head">
-          <h2 id="details-heading">Ticket details</h2>
-          <span class="step">01 / INPUT</span>
-        </div>
-
-        <form id="ticketForm" novalidate>
-
-          <span class="section-label">Match selections</span>
-
-          <div class="match-card">
-            <div class="match-title">
-              <span>Match 01</span>
-              <span>SELECTION</span>
-            </div>
-            <div class="field-grid">
-              <div class="field full">
-                <label for="match1">Fixture</label>
-                <input id="match1" maxlength="70"
-                  placeholder="e.g. Team A Vs Team B" required>
-              </div>
-              <div class="field">
-                <label for="result1">Result / Pick</label>
-                <input id="result1" maxlength="35"
-                  placeholder="e.g. Home Win" required>
-              </div>
-              <div class="field">
-                <label for="odd1">Decimal odds</label>
-                <input id="odd1" type="number" inputmode="decimal"
-                  min="1.01" max="100000" step="0.01"
-                  placeholder="e.g. 1.85" required>
-              </div>
-            </div>
-          </div>
-
-          <div class="match-card">
-            <div class="match-title">
-              <span>Match 02</span>
-              <span>SELECTION</span>
-            </div>
-            <div class="field-grid">
-              <div class="field full">
-                <label for="match2">Fixture</label>
-                <input id="match2" maxlength="70"
-                  placeholder="e.g. Team C Vs Team D" required>
-              </div>
-              <div class="field">
-                <label for="result2">Result / Pick</label>
-                <input id="result2" maxlength="35"
-                  placeholder="e.g. Home Win" required>
-              </div>
-              <div class="field">
-                <label for="odd2">Decimal odds</label>
-                <input id="odd2" type="number" inputmode="decimal"
-                  min="1.01" max="100000" step="0.01"
-                  placeholder="e.g. 1.85" required>
-              </div>
-            </div>
-          </div>
-
-          <div class="match-card">
-            <div class="match-title">
-              <span>Match 03</span>
-              <span>SELECTION</span>
-            </div>
-            <div class="field-grid">
-              <div class="field full">
-                <label for="match3">Fixture</label>
-                <input id="match3" maxlength="70"
-                  placeholder="e.g. Team E Vs Team F" required>
-              </div>
-              <div class="field">
-                <label for="result3">Result / Pick</label>
-                <input id="result3" maxlength="35"
-                  placeholder="e.g. Home Win" required>
-              </div>
-              <div class="field">
-                <label for="odd3">Decimal odds</label>
-                <input id="odd3" type="number" inputmode="decimal"
-                  min="1.01" max="100000" step="0.01"
-                  placeholder="e.g. 1.85" required>
-              </div>
-            </div>
-          </div>
-
-          <div class="match-card">
-            <div class="match-title">
-              <span>Match 04</span>
-              <span>SELECTION</span>
-            </div>
-            <div class="field-grid">
-              <div class="field full">
-                <label for="match4">Fixture</label>
-                <input id="match4" maxlength="70"
-                  placeholder="e.g. Team G Vs Team H" required>
-              </div>
-              <div class="field">
-                <label for="result4">Result / Pick</label>
-                <input id="result4" maxlength="35"
-                  placeholder="e.g. Home Win" required>
-              </div>
-              <div class="field">
-                <label for="odd4">Decimal odds</label>
-                <input id="odd4" type="number" inputmode="decimal"
-                  min="1.01" max="100000" step="0.01"
-                  placeholder="e.g. 1.85" required>
-              </div>
-            </div>
-          </div>
-
-          <p class="hint">
-            Use decimal odds greater than 1.00. The total odds are calculated by multiplying all four match odds.
-          </p>
-
-
-          <div class="actions">
-
-            <button class="btn btn-primary" type="submit">
-              GENERATE BET TICKET ↗
-            </button>
-
-            <button class="btn btn-secondary" type="reset" id="resetBtn">
-              CLEAR
-            </button>
-
-          </div>
-
-          <div class="error" id="formError" role="alert"></div>
-
-        </form>
-      </section>
-
-
-      <!-- TICKET PREVIEW -->
-
-      <section class="preview-wrap" aria-label="Ticket preview">
-
-        <div class="preview-caption">
-          <span>Live ticket preview</span>
-          <span>02 / OUTPUT</span>
-        </div>
-
-
-        <article class="ticket" id="ticket">
-
-          <!-- FIXED HEADER -->
-
-          <div class="ticket-top">
-
-            <div class="ticket-brand">
-
-              <div class="ticket-logo" aria-hidden="true">
-
-                <svg viewBox="0 0 32 32" fill="none">
-                  <path d="M16 2.8 27 7v8.2c0 7-4.7 11.7-11 14-6.3-2.3-11-7-11-14V7l11-4.2Z" fill="currentColor"/>
-                  <path d="m7.8 17 5.1-5.2 3.1 3 7.8-7.2" stroke="#101912" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"/>
-                  <path d="m19.2 7.6 4.6-.1-.2 4.5" stroke="#101912" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"/>
-                </svg>
-
-              </div>
-
-              <div>
-                <h2>JACOB'S SOCCER PREDICTIONS</h2>
-                <small>SPORTS ANALYSIS • MATCH SELECTIONS</small>
-              </div>
-
-            </div>
-          </div>
-
-
-          <!-- TICKET DETAILS -->
-
-          <div class="ticket-body">
-
-            <div class="ticket-meta">
-              <span>CARD ID: <strong id="ticketId">JC-000000</strong></span>
-              <span id="ticketDate">AWAITING DETAILS</span>
+            <div class="panel-heading">
+                <h2>Ticket Details</h2>
+                <span class="step">01 / INPUT</span>
             </div>
 
+            <form id="ticketForm" novalidate>
 
-            <table aria-label="Bet ticket selections">
+                <span class="section-label">MATCH SELECTIONS</span>
 
-              <thead>
-                <tr>
-                  <th>Match</th>
-                  <th>Correct Score</th>
-                  <th>Odd</th>
-                </tr>
-              </thead>
+                <!-- MATCH 1 -->
 
-              <tbody>
+                <div class="match-input">
+                    <div class="match-title">
+                        <span>Match 01</span>
+                        <span>SELECTION</span>
+                    </div>
 
-                <tr>
-                  <td class="match-name" id="outMatch1">Team A Vs Team B</td>
-                  <td class="result-value" id="outResult1">—</td>
-                  <td class="odd-value" id="outOdd1">—</td>
-                </tr>
+                    <div class="field-grid">
 
-                <tr>
-                  <td class="match-name" id="outMatch2">Team C Vs Team D</td>
-                  <td class="result-value" id="outResult2">—</td>
-                  <td class="odd-value" id="outOdd2">—</td>
-                </tr>
-                <tr>
-                  <td class="match-name" id="outMatch3">Team E Vs Team F</td>
-                  <td class="result-value" id="outResult3">—</td>
-                  <td class="odd-value" id="outOdd3">—</td>
-                </tr>
+                        <div class="field full">
+                            <label for="match1">Match Fixture</label>
+                            <input id="match1" maxlength="70"
+                                placeholder="Team A Vs Team B" required>
+                        </div>
 
-                <tr>
-                  <td class="match-name" id="outMatch4">Team G Vs Team H</td>
-                  <td class="result-value" id="outResult4">—</td>
-                  <td class="odd-value" id="outOdd4">—</td>
-                </tr>
+                        <div class="field">
+                            <label for="result1">Correct Score</label>
+                            <input id="result1" maxlength="20"
+                                placeholder="e.g. 2:0" required>
+                        </div>
 
-                <tr class="total-row">
-                  <td colspan="2">TOTAL ODDS</td>
-                  <td id="outTotal">—</td>
-                </tr>
+                        <div class="field">
+                            <label for="odd1">Decimal Odd</label>
+                            <input id="odd1" type="number"
+                                min="1.01" max="100000"
+                                step="any" placeholder="e.g. 2.50" required>
+                        </div>
 
-              </tbody>
+                    </div>
+                </div>
 
-            </table>
+                <!-- MATCH 2 -->
+
+                <div class="match-input">
+                    <div class="match-title">
+                        <span>Match 02</span>
+                        <span>SELECTION</span>
+                    </div>
+
+                    <div class="field-grid">
+
+                        <div class="field full">
+                            <label for="match2">Match Fixture</label>
+                            <input id="match2" maxlength="70"
+                                placeholder="Team C Vs Team D" required>
+                        </div>
+
+                        <div class="field">
+                            <label for="result2">Correct Score</label>
+                            <input id="result2" maxlength="20"
+                                placeholder="e.g. 1:0" required>
+                        </div>
+
+                        <div class="field">
+                            <label for="odd2">Decimal Odd</label>
+                            <input id="odd2" type="number"
+                                min="1.01" max="100000"
+                                step="any" placeholder="e.g. 1.80" required>
+                        </div>
+
+                    </div>
+                </div>
+
+                <!-- MATCH 3 -->
+
+                <div class="match-input">
+                    <div class="match-title">
+                        <span>Match 03</span>
+                        <span>SELECTION</span>
+                    </div>
+
+                    <div class="field-grid">
+
+                        <div class="field full">
+                            <label for="match3">Match Fixture</label>
+                            <input id="match3" maxlength="70"
+                                placeholder="Team E Vs Team F" required>
+                        </div>
+
+                        <div class="field">
+                            <label for="result3">Correct Score</label>
+                            <input id="result3" maxlength="20"
+                                placeholder="e.g. 2:1" required>
+                        </div>
+
+                        <div class="field">
+                            <label for="odd3">Decimal Odd</label>
+                            <input id="odd3" type="number"
+                                min="1.01" max="100000"
+                                step="any" placeholder="e.g. 2.00" required>
+                        </div>
+
+                    </div>
+                </div>
+
+                <p class="hint">
+                    Enter all three fixtures, correct scores and odds.
+                    Total odds are automatically calculated by
+                    multiplying the three individual odds.
+                </p>
+
+                <div class="actions">
+                    <button type="submit" class="generate">
+                        GENERATE TICKET ↗
+                    </button>
+
+                    <button type="reset" class="secondary" id="resetBtn">
+                        CLEAR
+                    </button>
+                </div>
+
+                <div class="error" id="formError" role="alert"></div>
+
+            </form>
+
+        </section>
 
 
-            <!-- EIGHT-DIGIT REFERENCE CODE -->
-            <div class="ticket-foot">
-              <div class="barcode-number" id="barcodeNumber">
-                0000 0000
-              </div>
-              <div class="ticket-note">
-                REFERENCE CODE • GENERATED FOR THIS CARD
-              </div>
+        <!-- OUTPUT PANEL -->
+
+        <section class="preview">
+
+            <div class="preview-label">
+                <span>LIVE TICKET PREVIEW</span>
+                <span>02 / OUTPUT</span>
             </div>
 
-          </div>
+            <article class="ticket" id="ticket">
 
-          </div>
+                <!-- FIXED BRANDING -->
 
+                <header class="ticket-header">
 
-          <!-- FIXED FOOTER -->
+                    <div class="ticket-brand">
 
-          <div class="ticket-bottom">
-            <span>JACOB'S <strong>●</strong> MATCH PREDICTIONS</span>
-            <span>100% ACCURATE</span>
-          </div>
+                        <div class="ticket-logo">◆</div>
 
-        </article>
+                        <div>
+                            <h2>JACOB'S SOCCER PREDICTIONS</h2>
+                            <small>SPORTS ANALYSIS • MATCH SELECTIONS</small>
+                        </div>
 
+                    </div>
 
-        <!-- ACTION BUTTONS -->
-
-        <div class="actions">
-
-          <button class="btn btn-orange" id="printBtn" type="button">
-            PRINT / SAVE PDF
-          </button>
-
-          <button class="btn btn-secondary" id="copyBtn" type="button">
-            COPY DETAILS
-          </button>
-
-        </div>
+                </header>
 
 
-        <p class="footnote">
-          This is a personal ticket-design tool. It does not place bets,
-          connect to a bookmaker, verify selections, or guarantee outcomes.
-          The eight-digit ticket reference is generated locally.
-        </p>
+                <!-- TICKET BODY -->
 
-      </section>
+                <div class="ticket-body">
+
+                    <div class="ticket-meta">
+                        <span>CARD ID: <strong id="ticketId">JC-000000</strong></span>
+                        <span id="ticketDate">AWAITING DETAILS</span>
+                    </div>
+
+
+                    <table>
+
+                        <thead>
+                            <tr>
+                                <th>MATCH</th>
+                                <th>CORRECT SCORE</th>
+                                <th>ODD</th>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+
+                            <tr>
+                                <td id="outMatch1">Team A Vs Team B</td>
+                                <td id="outResult1">—</td>
+                                <td id="outOdd1">—</td>
+                            </tr>
+
+                            <tr>
+                                <td id="outMatch2">Team C Vs Team D</td>
+                                <td id="outResult2">—</td>
+                                <td id="outOdd2">—</td>
+                            </tr>
+
+                            <tr>
+                                <td id="outMatch3">Team E Vs Team F</td>
+                                <td id="outResult3">—</td>
+                                <td id="outOdd3">—</td>
+                            </tr>
+
+                            <tr class="total-row">
+                                <td colspan="2">TOTAL ODDS</td>
+                                <td id="outTotal">—</td>
+                            </tr>
+
+                        </tbody>
+
+                    </table>
+
+
+                    <!-- EIGHT-DIGIT CODE ONLY -->
+
+                    <div class="ticket-foot">
+
+                        <div class="reference-code" id="referenceCode">
+                            0000 0000
+                        </div>
+
+                        <div class="ticket-note">
+                            REFERENCE CODE
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <!-- FIXED FOOTER -->
+
+                <footer class="ticket-footer">
+                    <span>JACOB'S • MATCH PREDICTIONS</span>
+                    <span>MATCH DETAILS</span>
+                </footer>
+
+            </article>
+
+
+            <div class="actions preview-actions">
+
+                <button class="orange-btn" id="printBtn" type="button">
+                    PRINT / SAVE PDF
+                </button>
+
+                <button class="secondary" id="copyBtn" type="button">
+                    COPY DETAILS
+                </button>
+
+            </div>
+
+            <p class="footnote">
+                This is a ticket-design tool. It does not place bets,
+                connect to bookmakers or verify match results.
+                The reference number is a locally generated visual identifier.
+            </p>
+
+        </section>
 
     </section>
 
-  </main>
+</main>
 
-
-  <script src="app.js"></script>
+<script src="app.js"></script>
 
 </body>
 </html>
